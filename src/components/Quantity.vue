@@ -3,17 +3,17 @@
         <f7-row>
             <f7-col>
                 <f7-card>
-                    <f7-card-header>{{$t('message.quantity.initialWeight')}}</f7-card-header>
+                    <f7-card-header>{{$t('message.quantity.totalRawWeight')}}</f7-card-header>
                     <f7-card-content>
-                        {{initialWeight}}
+                        {{totalRawWeight}}
                     </f7-card-content>
                 </f7-card>
             </f7-col>
             <f7-col>
                 <f7-card>
-                    <f7-card-header>{{$t('message.quantity.newWeight')}}</f7-card-header>
+                    <f7-card-header>{{$t('message.quantity.totalCookedWeight')}}</f7-card-header>
                     <f7-card-content>
-                        {{newWeight == 0 ? "&nbsp;" : newWeight}} 
+                        {{totalCookedWeight}} 
                     </f7-card-content>
                 </f7-card>
             </f7-col>
@@ -33,11 +33,11 @@
     export default {
         name: "Ratings", 
         props: {
-            initialWeight: {
+            totalRawWeight: {
                 type: Number, 
                 default: 0
             },
-            newWeight: {
+            totalCookedWeight: {
                 type: Number, 
                 default: 0
             }

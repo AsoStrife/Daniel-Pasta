@@ -3,34 +3,25 @@ const it =  {
         general: {
             close: "Chiudi",
             error: "Ops, qualcosa è andato storto",
-            euro: "€",
-            dollar: "$",
             cancel: "Annulla", 
             confirm: "Conferma", 
             ok: "Ok",
-            add: "Aggiungi"
-        },
-        examsTableCalculator: {
-            exams: "Esami", 
-            exam: "Esame",
-            grade: "Voto", 
-            cfu: "CFU",
-            clearAllExamsQuestion: "Sei sicuro di voler cancellare tutti gli esami?",
-            clearExamQuestion: "Sei sicuro di voler cancellare questo esame?"
-            
+            add: "Aggiungi",
+            gram: "g"
         },
         toolbar: {
             addServing: "Aggiungi porzione", 
-            addTotalWeight: "Aggiungi peso totale cotto"
+            addTotalCookedWeight: "Aggiungi peso totale pasta cotta"
         }, 
         quantity: {
-            initialWeight: "Peso a crudo", 
-            newWeight: "Peso a cotto"
+            totalRawWeight: "Peso a crudo", 
+            totalCookedWeight: "Peso a cotto"
         },
-        addTotalWeight: {
+        addTotalCookedWeight: {
             title: "Aggiungi peso totale", 
-            totalWight: "Peso totale",
-            totalWightPlaceholder: "Peso totale della pasta cotta"
+            totalCookedWeightLabel: "Peso totale pasta cotta",
+            totalCookedWeightPlaceholder: "Peso totale della pasta cotta",
+            errorMessage: "Il peso della pasta cotta non può essere minore del peso della pasta cruda"
         },
         addServing: {
             title: "Aggiungi porzione",
@@ -42,7 +33,8 @@ const it =  {
         servingsTable: {
             title: "Porzioni",
             name: "Nome", 
-            weight: "Peso",
+            rawWeight: "Peso pasta cruda",
+            cookedWeight: "Peso pasta cotta",
             clearAllServingsQuestion: "Sei sicuro di voler cancellare tutte le porzioni?",
             clearServingQuestion: "Sei sicuro di voler cancellare questa porzione?"
 

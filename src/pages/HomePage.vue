@@ -9,11 +9,15 @@
         <!-- Toolbar-->
         <f7-toolbar bottom>
             <f7-link @click="addServingPopup()">{{$t('message.toolbar.addServing')}}</f7-link>
-            <f7-link @click="addTotalWeightPopup()">{{$t('message.toolbar.addTotalWeight')}}</f7-link>
+            <f7-link @click="addTotalCookedWeightPopup()">{{$t('message.toolbar.addTotalCookedWeight')}}</f7-link>
         </f7-toolbar>
-        <Quantity :initialWeight="initialWeight" :newWeight="newWeight"/>
+
+        <Quantity :totalRawWeight="totalRawWeight" :totalCookedWeight="totalCookedWeight"/>
+
         <AddServing />
-        <AddTotalWeight />
+
+        <AddTotalCookedWeight :totalRawWeight="totalRawWeight" :defaultTotalCookedWeight="totalCookedWeight"/>
+
         <ServingsTable :servings="servings"/>
 
     </f7-page>
@@ -22,7 +26,7 @@
 <script>
     import { f7ready, f7 } from 'framework7-vue'
     import AddServing from '../components/AddServing.vue'
-    import AddTotalWeight from '../components/AddTotalWeight.vue'
+    import AddTotalCookedWeight from '../components/AddTotalCookedWeight.vue'
     import ServingsTable from '../components/ServingsTable.vue'
     import Quantity from '../components/Quantity.vue'
 
@@ -30,36 +34,38 @@
         name: "HomePage",
         data() {
             return {
-                servings: [
-                    {
-                        "name": "Andrea", 
-                        "weight": 100
-                    }
-                ], 
-                initialWeight: 0,
-                newWeight: 0
+                servings: [], 
+                totalRawWeight: 0,
+                totalCookedWeight: 0
             };
         },
         components: {
             AddServing,
             ServingsTable,
-            AddTotalWeight,
+            AddTotalCookedWeight,
             Quantity
         },
         methods: {
             addServingPopup(){
                 f7.popup.open('.add-serving-popup')
             },
-            addTotalWeightPopup(){
+            addTotalCookedWeightPopup(){
                 f7.popup.open('.add-total-weight-popup')
             },
-            calculateNewAvg() {
-                this.newTotalCfu = parseInt(this.initialTotalCfu) + this.newExams.reduce(function (acc, e) { return acc + parseInt(e.examCfu) }, 0)
-                let newExamsWeightedSum = this.newExams.reduce(function (acc, e) { return acc + (parseInt(e.examCfu) * parseInt(e.examGrade)) }, 0)
-                let initialExamWeightedSum = this.initialWeightedAvg * this.initialTotalCfu
-                this.newWeightedAvg = parseFloat((initialExamWeightedSum + newExamsWeightedSum) / this.newTotalCfu).toFixed(2)
-                this.newWeightedAvg = parseFloat(this.newWeightedAvg)
-                this.textColor = this.newWeightedAvg > this.initialWeightedAvg ? "text-success" : (this.newWeightedAvg < this.initialWeightedAvg ? "text-danger" : "")
+            doMath() {
+                this.totalRawWeight = this.servings.reduce( (a, b) => a + b.weight, 0)
+                
+                if(this.totalRawWeight > this.totalCookedWeight)
+                    this.totalCookedWeight = this.totalRawWeight
+
+                let proportion = this.totalCookedWeight / this.totalRawWeight 
+                this.servings = this.servings.map( serving => ({
+                    ...serving, coockedWeight: serving.weight * proportion
+                }))
+            },
+            resetWeights() {
+                this.totalRawWeight = 0
+                this.totalCookedWeight = 0
             }
         },
         mounted() {
@@ -67,17 +73,25 @@
             f7ready(async () => {
                 f7.on('addServing', function(data){
                     self.servings.push(data)
-                    self.calculateNewAvg()
+                    self.doMath()
                 })
                 f7.on('deleteExamFromCalulator', function(data) {
-                    self.newExams.splice(data, 1)
-                    self.calculateNewAvg()
+                    self.servings.splice(data, 1)
+
+                    if(self.servings.length == 0)
+                        self.resetWeights()
+
+                    self.doMath()
                 })
                 f7.on('deleteAllExamFromCalulator', function() {
-                    self.newExams = []
-                    self.calculateNewAvg()
+                    self.servings = []
+                    self.resetWeights()
                 })
-            });
+                f7.on('addTotalCookedWeight', function(totalCookedWeight) {
+                    self.totalCookedWeight = totalCookedWeight
+                    self.doMath()
+                })
+            })
         } 
         
     }
