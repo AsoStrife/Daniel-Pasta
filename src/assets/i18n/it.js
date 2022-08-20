@@ -12,7 +12,7 @@ const it =  {
         },
         toolbar: {
             addServing: "Aggiungi porzione", 
-            addTotalCookedWeight: "Aggiungi peso totale pasta cotta"
+            addTotalCookedWeight: "Aggiungi peso pasta cotta"
         }, 
         quantity: {
             totalRawWeight: "Peso a crudo", 
