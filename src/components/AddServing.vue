@@ -14,25 +14,25 @@
                 <f7-list class="mt-0" no-hairlines-md>
                     <f7-list-input
                         outline
-                        :label="$t('message.addServing.name')"
-                        :placeholder="$t('message.addServing.namePlaceholder')"
+                        :label="$t('message.addServing.personName')"
+                        :placeholder="$t('message.addServing.personNamePlaceholder')"
                         floating-label
                         type="text"
                         clear-button
-                        :value="name"
-                        @input="name = $event.target.value"
+                        :value="personName"
+                        @input="personName = $event.target.value"
                     >
                     </f7-list-input>
 
                     <f7-list-input
                         outline
-                        :label="$t('message.addServing.weight')"
-                        :placeholder="$t('message.addServing.weightPlaceholder')"
+                        :label="$t('message.addServing.rawWeight')"
+                        :placeholder="$t('message.addServing.rawWeightPlaceholder')"
                         floating-label
                         type="number"
                         clear-button
-                        :value="weight"
-                        @input="weight = $event.target.value"
+                        :value="rawWeight == 0 ? '' : rawWeight"
+                        @input="rawWeight = $event.target.value"
                     >
                     </f7-list-input>
 
@@ -41,7 +41,7 @@
                 <f7-block>
                     <f7-button fill popup-close
                         @click="addServing" 
-                        :disabled="isEmpty(this.name) || isEmpty(this.weight)"> {{$t('message.general.add')}} 
+                        :disabled="isEmpty(this.personName) || isEmpty(this.rawWeight)"> {{$t('message.general.add')}} 
                     </f7-button>
                 </f7-block>
 
@@ -61,8 +61,8 @@
         },
         data() {
             return {
-                name: "",
-                weight: "",
+                personName: "",
+                rawWeight: 0
             }
         },
         methods: {
@@ -71,14 +71,15 @@
             },
             addServing() {
                 f7.emit('addServing', {
-                    name: this.name,
-                    weight: parseInt(this.weight)
+                    personName: this.personName,
+                    rawWeight: parseInt(this.rawWeight),
+                    cookedWeight: parseInt(this.rawWeight)
                 })
                 this.clearValues()
             },
             clearValues() {
-                this.name = ""
-                this.weight = ""
+                this.personName = ""
+                this.rawWeight = 0
             }
         }
     }

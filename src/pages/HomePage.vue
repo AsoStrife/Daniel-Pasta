@@ -1,9 +1,9 @@
 <template>
-    <f7-page name="home">
+    <f7-page name="HomePage">
         
         <!-- Top Navbar -->
         <f7-navbar>
-            <f7-nav-title>Daniel Pasta</f7-nav-title>
+            <f7-nav-title>{{$t('message.general.appName')}}</f7-nav-title>
         </f7-navbar>
         
         <!-- Toolbar-->
@@ -12,7 +12,7 @@
             <f7-link @click="addTotalCookedWeightPopup()">{{$t('message.toolbar.addTotalCookedWeight')}}</f7-link>
         </f7-toolbar>
 
-        <Quantity :totalRawWeight="totalRawWeight" :totalCookedWeight="totalCookedWeight"/>
+        <QuantityBoxes :totalRawWeight="totalRawWeight" :totalCookedWeight="totalCookedWeight"/>
 
         <AddServing />
 
@@ -28,7 +28,7 @@
     import AddServing from '../components/AddServing.vue'
     import AddTotalCookedWeight from '../components/AddTotalCookedWeight.vue'
     import ServingsTable from '../components/ServingsTable.vue'
-    import Quantity from '../components/Quantity.vue'
+    import QuantityBoxes from '../components/QuantyBoxes.vue'
 
     export default {
         name: "HomePage",
@@ -43,7 +43,7 @@
             AddServing,
             ServingsTable,
             AddTotalCookedWeight,
-            Quantity
+            QuantityBoxes
         },
         methods: {
             addServingPopup(){
@@ -53,14 +53,14 @@
                 f7.popup.open('.add-total-weight-popup')
             },
             doMath() {
-                this.totalRawWeight = this.servings.reduce( (a, b) => a + b.weight, 0)
+                this.totalRawWeight = this.servings.reduce( (a, b) => a + b.rawWeight, 0)
                 
                 if(this.totalRawWeight > this.totalCookedWeight)
                     this.totalCookedWeight = this.totalRawWeight
 
                 let proportion = this.totalCookedWeight / this.totalRawWeight 
                 this.servings = this.servings.map( serving => ({
-                    ...serving, coockedWeight: serving.weight * proportion
+                    ...serving, cookedWeight: serving.rawWeight * proportion
                 }))
             },
             resetWeights() {
@@ -75,6 +75,10 @@
                     self.servings.push(data)
                     self.doMath()
                 })
+                f7.on('addTotalCookedWeight', function(totalCookedWeight) {
+                    self.totalCookedWeight = totalCookedWeight
+                    self.doMath()
+                })
                 f7.on('deleteExamFromCalulator', function(data) {
                     self.servings.splice(data, 1)
 
@@ -87,10 +91,7 @@
                     self.servings = []
                     self.resetWeights()
                 })
-                f7.on('addTotalCookedWeight', function(totalCookedWeight) {
-                    self.totalCookedWeight = totalCookedWeight
-                    self.doMath()
-                })
+                
             })
         } 
         

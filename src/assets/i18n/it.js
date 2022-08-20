@@ -1,6 +1,7 @@
 const it =  {
     message: {
         general: {
+            appName: "Daniel Pasta",
             close: "Chiudi",
             error: "Ops, qualcosa è andato storto",
             cancel: "Annulla", 
@@ -25,14 +26,14 @@ const it =  {
         },
         addServing: {
             title: "Aggiungi porzione",
-            name: "Nome",
-            namePlaceholder: "Nome di chi riceverà la porzione",
-            weight: "Peso", 
-            weightPlaceholder: "Peso della pasta (a crudo)"
+            personName: "Nome",
+            personNamePlaceholder: "Nome di chi riceverà la porzione",
+            rawWeight: "Peso", 
+            rawWeightPlaceholder: "Peso della pasta (a crudo)"
         },
         servingsTable: {
             title: "Porzioni",
-            name: "Nome", 
+            personName: "Nome", 
             rawWeight: "Peso pasta cruda",
             cookedWeight: "Peso pasta cotta",
             clearAllServingsQuestion: "Sei sicuro di voler cancellare tutte le porzioni?",

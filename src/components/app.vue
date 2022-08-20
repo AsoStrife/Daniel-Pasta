@@ -13,7 +13,6 @@
   import { getDevice }  from 'framework7/lite-bundle';
   import capacitorApp from '../js/capacitor-app.js';
   import routes from '../js/routes.js';
-  import store from '../js/store';
 
   export default {
     setup() {
@@ -22,11 +21,8 @@
       const f7params = {
         name: 'Daniel Pasta', // App name
         theme: 'auto', // Automatic theme detection
-
-
         id: 'com.andreacorriga.danielpasta', // App bundle ID
-        // App store
-        store: store,
+
         // App routes
         routes: routes,
 

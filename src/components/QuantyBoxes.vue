@@ -31,7 +31,7 @@
     import { f7ready, f7 } from 'framework7-vue'
 
     export default {
-        name: "Ratings", 
+        name: "QuantityBoxes", 
         props: {
             totalRawWeight: {
                 type: Number, 

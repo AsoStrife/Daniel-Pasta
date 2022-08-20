@@ -16,12 +16,12 @@
                 <tbody>
  
                     <tr v-for="(serving, index)  in servings" :key="index" @click="deleteExam(index)">
-                        <td class="label-cell" :data-collapsible-title="$t('message.servingsTable.name')">{{serving.name}}</td>
+                        <td class="label-cell" :data-collapsible-title="$t('message.servingsTable.personName')"><b>{{serving.personName}}</b></td>
                         
-                        <td class="numeric-cell" :data-collapsible-title="$t('message.servingsTable.rawWeight')">{{serving.weight}}{{$t('message.general.gram')}}</td>
+                        <td class="numeric-cell" :data-collapsible-title="$t('message.servingsTable.rawWeight')">{{serving.rawWeight}}{{$t('message.general.gram')}}</td>
                         
                         <td class="numeric-cell" :data-collapsible-title="$t('message.servingsTable.cookedWeight')">
-                            {{parseFloat(serving?.coockedWeight).toFixed(2)}}{{$t('message.general.gram')}}
+                            {{parseFloat(serving?.cookedWeight).toFixed(2)}}{{$t('message.general.gram')}}
                         </td>
                     </tr>
 

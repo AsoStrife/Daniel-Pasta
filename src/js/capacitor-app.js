@@ -70,6 +70,10 @@ var capacitorApp = {
         return;
       }
 
+      if(currentView.router.history.length <= 1){
+        navigator.app.exitApp()
+      }
+
       if ($('.panel.panel-in').length) {
         f7.panel.close('.panel.panel-in');
         return;
