@@ -2,8 +2,8 @@
     <f7-page name="HomePage">
         
         <!-- Top Navbar -->
-        <f7-navbar>
-            <f7-nav-title>{{$t('message.general.appName')}}</f7-nav-title>
+        <f7-navbar :title="$t('message.general.appName')">
+            <f7-nav-title></f7-nav-title>
         </f7-navbar>
         
         <!-- Toolbar-->

@@ -5,7 +5,7 @@
                 <f7-card>
                     <f7-card-header>{{$t('message.quantity.totalRawWeight')}}</f7-card-header>
                     <f7-card-content>
-                        {{totalRawWeight}}
+                        {{totalRawWeight}}{{$t('message.general.gram')}}
                     </f7-card-content>
                 </f7-card>
             </f7-col>
@@ -13,7 +13,7 @@
                 <f7-card>
                     <f7-card-header>{{$t('message.quantity.totalCookedWeight')}}</f7-card-header>
                     <f7-card-content>
-                        {{totalCookedWeight}} 
+                        {{totalCookedWeight}}{{$t('message.general.gram')}}
                     </f7-card-content>
                 </f7-card>
             </f7-col>
